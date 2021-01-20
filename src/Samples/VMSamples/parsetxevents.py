@@ -5,30 +5,15 @@ import sys
 sys.path.append('../../Libs')
 from VM import EventDecoder
 
-def get_with_retry(url, method, params):
-    RETRIES = 10
-    url = url + "/" + method
-    for i in range(10):
-        try:
-            data = requests.get(url=url, params=params, timeout=30)
-            data = data.json()
-            if data is None:
-                raise Exception("No data found.")
-            return data
-        except Exception as ex:
-            pass
-        if i < RETRIES - 1:
-            time.sleep(2 ** i)
-        else:
-            raise Exception("failed after all retries")
+sys.path.append('../../Bindings')
+from Phantasma import PhantasmaAPI
 
+def parseEventTx(txhash):
+    #PRODUCTION RPC URL
+    PHAN_API_URL = "http://207.148.17.86:7077/rpc"
 
-def parseEventTx(hash):
-    PHAN_API_URL = "http://207.148.17.86:7078/api"
-    params = dict(
-        hashText=hash
-    )
-    tx = get_with_retry(PHAN_API_URL, "getTransaction", params)
+    api = PhantasmaAPI(PHAN_API_URL)
+    tx = api.getTransaction(txhash)
 
     #print("RAW TX DATA", tx)
     if 'result' in tx:
