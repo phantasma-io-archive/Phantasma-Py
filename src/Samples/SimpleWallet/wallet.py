@@ -1,7 +1,7 @@
 import sys
 
-sys.path.append('../../Bindings')
-from Phantasma import PhantasmaAPI
+sys.path.append('../../Libs')
+from RPC import PhantasmaAPI
 
 try:
     api = PhantasmaAPI("http://localhost:7077/rpc")
