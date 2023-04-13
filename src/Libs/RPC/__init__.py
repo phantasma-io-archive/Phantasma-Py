@@ -1,2 +1,3 @@
 # __init__.py
-from .Phantasma import PhantasmaAPI
+from PhantasmaAPI import PhantasmaAPI
+from PhantasmaRPC import PhantasmaRPC

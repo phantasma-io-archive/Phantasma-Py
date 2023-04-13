@@ -1,7 +1,7 @@
 import requests
 import json
 
-class PhantasmaAPI:
+class PhantasmaRPC:
 	url = None 
 
 	def __init__(self, url):
@@ -23,6 +23,7 @@ class PhantasmaAPI:
 		return response["result"]
 
 
+	# Account methods
 	def getAccount(self, addressText):
 		"""
 		Returns the account name and balance of given address.
@@ -44,7 +45,8 @@ class PhantasmaAPI:
 		"""
 		params = [name];
 		return self.__JSON_RPC("lookUpName", params);	
-	
+
+	# Block methods
 	def getBlockHeight(self, chainInput):
 		"""
 		Returns the height of a chain.

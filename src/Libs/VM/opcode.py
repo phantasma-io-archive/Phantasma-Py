@@ -21,7 +21,7 @@ class Opcode(IntEnum):
     LOAD = 13
     CAST = 14
     CAT = 15
-    SUBSTR = 16
+    RANGE = 16
     LEFT = 17
     RIGHT = 18
     SIZE = 19
@@ -51,10 +51,17 @@ class Opcode(IntEnum):
     SHR = 41
     MIN = 42
     MAX = 43
+    POW = 44
     # Context
-    THIS = 44
     CTX = 45
     SWITCH = 46
     # Array
     PUT = 47
     GET = 48
+    CLEAR = 49
+    UNPACK = 50
+    PACK = 51
+    # Debugger
+    DEBUG = 52
+    # ADD
+    SUBSTR = 53
