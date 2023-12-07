@@ -2,8 +2,9 @@ name: Build and Publish
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main # or any branch you want to trigger on
+  workflow_dispatch:
 
 jobs:
   build-and-publish:
