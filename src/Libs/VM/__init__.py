@@ -1,6 +1,10 @@
 # __init__.py
-from .vmtype import VMType
-from .opcode import Opcode
-from .eventdecoder import EventDecoder
-from .scriptbuilder import ScriptBuilder
-from .transaction import Transaction
+from .VMType import VMType
+from .Opcode import Opcode
+from .EventDecoder import EventDecoder
+from .ScriptBuilder import ScriptBuilder
+from .Contracts import Contracts
+from .Decoder import Decoder
+from .EventData import EventData
+from .TypeAuction import TypeAuction
+from .VMObject import VMObject

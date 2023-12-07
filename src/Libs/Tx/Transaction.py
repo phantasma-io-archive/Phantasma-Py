@@ -5,7 +5,7 @@ from ecpy.keys import ECPublicKey, ECPrivateKey
 from ecpy.eddsa import EDDSA
 import hashlib
 
-from .scriptbuilder import ScriptBuilder
+from ..VM.ScriptBuilder import ScriptBuilder
 
 
 class Transaction():
@@ -35,6 +35,7 @@ class Transaction():
     script: str = None
     expiration: int = None
     payload: str = None
+    hash: str = None
 
     signatures = []
 
