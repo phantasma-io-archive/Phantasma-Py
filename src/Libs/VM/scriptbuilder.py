@@ -1,8 +1,8 @@
 from datetime import datetime
 from typing import Any
 from enum import Enum, IntEnum
-from .opcode import Opcode
-from .vmtype import VMType
+from .Opcode import Opcode
+from .VMType import VMType
 
 
 class ScriptBuilder():
@@ -52,7 +52,7 @@ class ScriptBuilder():
         self._labelLocations = []
         self._jumpLocations = []
 
-    def beginScript(self) -> None:
+    def BeginScript(self) -> None:
         '''This method initializes an empty script.
 
         Args:
@@ -66,7 +66,7 @@ class ScriptBuilder():
         self._labelLocations = []
         self._jumpLocations = []
 
-    def getScript(self) -> str:
+    def GetScript(self) -> str:
         '''This method returns the generated script as string.
 
         Args:
@@ -77,7 +77,7 @@ class ScriptBuilder():
         '''
         return self.data
 
-    def endScript(self) -> str:
+    def EndScript(self) -> str:
         '''This method finishes the script and return it as string.
 
         Args:
@@ -86,10 +86,10 @@ class ScriptBuilder():
         Returns:
             endScript (str): end result script.
         '''
-        self.emit(Opcode.RET)
+        self.Emit(Opcode.RET)
         return self.data
 
-    def emit(self, opcode: Opcode, data: Any = None) -> None:
+    def Emit(self, opcode: Opcode, data: Any = None) -> None:
         '''This method emits an opcode with its data.
 
         Args:
@@ -99,7 +99,7 @@ class ScriptBuilder():
         Returns:
             None
         '''
-        self.appendByte(opcode)
+        self.AppendByte(opcode)
         if data is not None:
             if isinstance(data, list):
                 for d in data:
@@ -108,7 +108,7 @@ class ScriptBuilder():
                 self.emit(data)
         return self
 
-    def emitPush(self, reg: int) -> None:
+    def EmitPush(self, reg: int) -> None:
         '''This method emits a PUSH opcode.
 
         Args:
@@ -117,11 +117,11 @@ class ScriptBuilder():
         Returns:
             None
         '''
-        self.emit(Opcode.PUSH)
-        self.appendByte(reg)
+        self.Emit(Opcode.PUSH)
+        self.AppendByte(reg)
         return self
 
-    def emitPop(self, reg: int) -> None:
+    def EmitPop(self, reg: int) -> None:
         '''This method emits a POP opcode.
 
         Args:
@@ -130,11 +130,11 @@ class ScriptBuilder():
         Returns:
             None
         '''
-        self.emit(Opcode.POP)
-        self.appendByte(reg)
+        self.Emit(Opcode.POP)
+        self.AppendByte(reg)
         return self
 
-    def emitExtCall(self, method: str, reg: int = 0) -> None:
+    def EmitExtCall(self, method: str, reg: int = 0) -> None:
         '''This method emits a EXTCALL opcode.
 
         Args:
@@ -144,12 +144,12 @@ class ScriptBuilder():
         Returns:
             None
         '''
-        self.emitLoad(reg, method)
-        self.emit(Opcode.EXTCALL)
-        self.appendByte(reg)
+        self.EmitLoad(reg, method)
+        self.Emit(Opcode.EXTCALL)
+        self.AppendByte(reg)
         return self
 
-    def rawString(self, value: str) -> list:
+    def RawString(self, value: str) -> list:
         '''This method converts an string to a list of byte characters.
 
         Args:
@@ -163,7 +163,7 @@ class ScriptBuilder():
             data.append(ord(c))
         return data
 
-    def emitLoad(self, reg: int, obj: Any) -> None:
+    def EmitLoad(self, reg: int, obj: Any) -> None:
         '''This method loads data to the script depending of the object type
         Supported object types are: str, bool, int, float and datetime.
 
@@ -210,7 +210,7 @@ class ScriptBuilder():
 
         return self
 
-    def emitLoadBytes(self, reg: int, data: bytes = None,
+    def EmitLoadBytes(self, reg: int, data: bytes = None,
                       typ: VMType = VMType.BYTES) -> None:
 
         '''This method loads bytes data to the script.
@@ -230,14 +230,14 @@ class ScriptBuilder():
         if len(data) > 0xffff:
             raise Exception("tried to load too much data")
 
-        self.emit(Opcode.LOAD)
-        self.appendByte(reg)
-        self.appendByte(typ)
-        self.emitVarInt(len(data))
-        self.emitBytes(data)
+        self.Emit(Opcode.LOAD)
+        self.AppendByte(reg)
+        self.AppendByte(typ)
+        self.EmitVarInt(len(data))
+        self.EmitBytes(data)
         return self
 
-    def emitLoadEnum(self, reg: int, val: int) -> None:
+    def EmitLoadEnum(self, reg: int, val: int) -> None:
         '''This method loads enum data to the script.
 
         Args:
@@ -254,10 +254,10 @@ class ScriptBuilder():
             data[c] = (val & 0xff)
             val = (val - (val & 0xff)) / 256
 
-        self.emitLoadBytes(reg, data, VMType.ENUM)
+        self.EmitLoadBytes(reg, data, VMType.ENUM)
         return self
 
-    def emitLoadTimestamp(self, reg: int, obj: datetime) -> None:
+    def EmitLoadTimestamp(self, reg: int, obj: datetime) -> None:
         '''This method loads a datetime data to the script as an UTC timestamp.
 
         Args:
@@ -276,10 +276,10 @@ class ScriptBuilder():
         d = num & 0x000000ff
 
         data = [d, c, b, a]
-        self.emitLoadBytes(reg, data, VMType.TIMESTAMP)
+        self.EmitLoadBytes(reg, data, VMType.TIMESTAMP)
         return self
 
-    def emitMove(self, src_reg: int, dst_reg: int) -> None:
+    def EmitMove(self, src_reg: int, dst_reg: int) -> None:
         '''This method emits a MOVE opcode.
 
         Args:
@@ -290,12 +290,12 @@ class ScriptBuilder():
             None
         '''
 
-        self.emit(Opcode.MOVE)
-        self.appendByte(src_reg)
-        self.appendByte(dst_reg)
+        self.Emit(Opcode.MOVE)
+        self.AppendByte(src_reg)
+        self.AppendByte(dst_reg)
         return self
 
-    def emitCopy(self, src_reg: int, dst_reg: int) -> None:
+    def EmitCopy(self, src_reg: int, dst_reg: int) -> None:
         '''This method emits a COPY opcode.
 
         Args:
@@ -306,12 +306,12 @@ class ScriptBuilder():
             None
         '''
 
-        self.emit(Opcode.COPY)
-        self.appendByte(src_reg)
-        self.appendByte(dst_reg)
+        self.Emit(Opcode.COPY)
+        self.AppendByte(src_reg)
+        self.AppendByte(dst_reg)
         return self
 
-    def emitLabel(self, label: str) -> None:
+    def EmitLabel(self, label: str) -> None:
         '''This method loads a label into the script.
 
         Args:
@@ -321,11 +321,11 @@ class ScriptBuilder():
             None
         '''
 
-        self.emit(Opcode.NOP)
+        self.Emit(Opcode.NOP)
         self._labelLocations[label] = len(self.data)
         return self
 
-    def emitJump(self, opcode: Opcode, label: str, reg: int = 0) -> None:
+    def EmitJump(self, opcode: Opcode, label: str, reg: int = 0) -> None:
         '''This method emits a JUMP opcode.
 
         Args:
@@ -339,19 +339,19 @@ class ScriptBuilder():
 
         if ((opcode == Opcode.JMP) or (
                 opcode == Opcode.JMPIF) or (opcode == Opcode.JMPNOT)):
-            self.emit(opcode)
+            self.Emit(opcode)
         else:
             raise Exception("Invalid jump opcode: " + str(opcode))
 
         if (opcode != Opcode.JMP):
-            self.appendByte(reg)
+            self.AppendByte(reg)
 
         ofs = len(self.data)
-        self.appendUshort(0)
+        self.AppendUshort(0)
         self._jumpLocations[ofs] = label
         return self
 
-    def emitCall(self, label: str, regCount: int) -> None:
+    def EmitCall(self, label: str, regCount: int) -> None:
         '''This method emits a CALL opcode.
 
         Args:
@@ -366,12 +366,12 @@ class ScriptBuilder():
             raise Exception("Invalid number of registers")
 
         ofs = (len(self.data)) + 2
-        self.emit(Opcode.CALL)
-        self.appendUshort(0)
+        self.Emit(Opcode.CALL)
+        self.AppendUshort(0)
         self._jumpLocations[ofs] = label
         return self
 
-    def emitConditionalJump(
+    def EmitConditionalJump(
             self,
             opcode: Opcode,
             src_reg: int,
@@ -392,12 +392,12 @@ class ScriptBuilder():
             raise Exception("Opcode is not a conditional jump: " + str(opcode))
 
         ofs = (len(self.data)) + 2
-        self.emit(opcode)
-        self.appendUshort(0)
+        self.Emit(opcode)
+        self.AppendUshort(0)
         self._jumpLocations[ofs] = label
         return self
 
-    def insertMethodArgs(self, args: list) -> None:
+    def InsertMethodArgs(self, args: list) -> None:
         '''This loads method arguments into the script.
 
         Args:
@@ -409,10 +409,10 @@ class ScriptBuilder():
 
         temp_reg = 0
         for arg in reversed(args):
-            self.emitLoad(temp_reg, arg)
-            self.emitPush(temp_reg)
+            self.EmitLoad(temp_reg, arg)
+            self.EmitPush(temp_reg)
 
-    def callInterop(self, method: str, args: list) -> None:
+    def CallInterop(self, method: str, args: list) -> None:
         '''This method loads an external method and its arguments into the script.
 
         Args:
@@ -430,7 +430,7 @@ class ScriptBuilder():
         self.emit(Opcode.EXTCALL, dest_reg)
         return self
 
-    def callContract(self, contractName: str, method: str, args: list) -> None:
+    def CallContract(self, contractName: str, method: str, args: list) -> None:
         '''This method adds a contract method call with its arguments into the script.
 
         Args:
@@ -455,7 +455,7 @@ class ScriptBuilder():
         self.emit(Opcode.SWITCH, [dest_reg])
         return self
 
-    def emitVarString(self, text: str) -> None:
+    def EmitVarString(self, text: str) -> None:
         '''This method loads a str variable into the script.
 
         Args:
@@ -465,12 +465,12 @@ class ScriptBuilder():
             None
         '''
 
-        data = self.rawString(text)
-        self.emitVarInt(len(data))
-        self.emitBytes(data)
+        data = self.RawString(text)
+        self.EmitVarInt(len(data))
+        self.EmitBytes(data)
         return self
 
-    def emitVarInt(self, value: int) -> None:
+    def EmitVarInt(self, value: int) -> None:
         '''This method loads a int variable into the script.
 
         Args:
@@ -510,7 +510,7 @@ class ScriptBuilder():
             self.appendByte(D)
         return self
 
-    def emitBytes(self, data: bytes) -> None:
+    def EmitBytes(self, data: bytes) -> None:
         '''This method loads a bytes variable into the script.
 
         Args:
@@ -523,7 +523,7 @@ class ScriptBuilder():
         for i in data:
             self.appendByte(i)
 
-    def byteToHex(self, data: int) -> str:
+    def ByteToHex(self, data: int) -> str:
         '''This method converts a byte into an str hex representation.
 
         Args:
@@ -538,7 +538,7 @@ class ScriptBuilder():
             res = "0" + res
         return res
 
-    def appendByte(self, data: int) -> None:
+    def AppendByte(self, data: int) -> None:
         '''This method loads a byte variable into the script.
 
         Args:
@@ -550,7 +550,7 @@ class ScriptBuilder():
 
         self.data = self.data + self.byteToHex(data)
 
-    def appendUshort(self, ushort: int) -> None:
+    def AppendUshort(self, ushort: int) -> None:
         '''This method loads a unsigned short int variable into the script.
 
         Args:
@@ -563,7 +563,7 @@ class ScriptBuilder():
         self.data = self.data + \
             (self.byteToHex(ushort & 0xff)) + (this.byteToHex((ushort >> 8) & 0xff))
 
-    def appendHexEncoded(self, data: str) -> None:
+    def AppendHexEncoded(self, data: str) -> None:
         '''This method loads an Hex string variable into the script.
 
         Args:
@@ -577,7 +577,7 @@ class ScriptBuilder():
         return self
 
     # ScriptBuilderExtensions
-    def allowGas(
+    def AllowGas(
             self,
             frm: str,
             to: str,
@@ -598,7 +598,7 @@ class ScriptBuilder():
             None
         '''
 
-    def spendGas(self, address: str) -> None:
+    def SpendGas(self, address: str) -> None:
         return self.callContract(
             self.Nexus["GasContractName"], "SpendGas", [address])
         '''This method is a wrapper that invokes the method SpendGas from the gas contract.

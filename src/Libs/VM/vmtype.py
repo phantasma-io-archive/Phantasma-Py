@@ -3,11 +3,11 @@ from enum import IntEnum
 
 class VMType(IntEnum):
     NONE = 0
-    STRUCT = 1
-    BYTES = 2
-    NUMBER = 3
-    STRING = 4
-    TIMESTAMP = 5
-    BOOL = 6
-    ENUM = 7
-    OBJECT = 8
+    Struct = 1
+    Bytes = 2
+    Number = 3
+    String = 4
+    Timstamp = 5
+    Bool = 6
+    Enum = 7
+    Object = 8
