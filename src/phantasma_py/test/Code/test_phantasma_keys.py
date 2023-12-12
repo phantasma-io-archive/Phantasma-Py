@@ -3,7 +3,7 @@ import sys
 import os
 import unittest
 
-sys.path.append('../../../../')
+#sys.path.append('../../../../')
 
 from Types import Address
 from Types import PhantasmaKeys

@@ -4,8 +4,10 @@ from ctypes import Union
 from datetime import datetime
 from email.headerregistry import Address
 from Types.Timestamp import Timestamp
-from VMType import VMType
-import big_int  # Assuming big_int is a Python equivalent of big-integer library
+from .VMType import VMType
+from typing import Dict, Union
+
+#import big_int  # Assuming big_int is a Python equivalent of big-integer library
 
 
 class VMObject:
@@ -990,5 +992,3 @@ class VMObject:
             return f"Object of type {self.Type} with data: {self.Data}"
         else:
             raise ValueError(f"Invalid cast: expected string, got {self.Type}")
-
-

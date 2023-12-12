@@ -1,4 +1,4 @@
-import big_int  # Assuming big_int is a Python equivalent of big-integer library
+#import big_int  # Assuming big_int is a Python equivalent of big-integer library
 
 class Decoder:
     def __init__(self, str):
@@ -13,7 +13,11 @@ class Decoder:
         return res
 
     def read_byte(self):
-        return int(self.read_char_pair(), 16)
+        try:
+            return int(self.read_char_pair(), 16)
+        except ValueError as e:
+            # Handle the error or re-raise with a more descriptive message
+            raise ValueError(f"read_char_pair() returned an invalid hexadecimal value: {e}")
 
     def read(self, num_bytes):
         res = self.str[:num_bytes * 2]

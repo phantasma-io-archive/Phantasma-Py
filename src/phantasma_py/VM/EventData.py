@@ -1,8 +1,7 @@
-from enum import Enum
 import struct
 import base64
 
-from VM.Decoder import Decoder
+from .Decoder import Decoder
 
 def decode_vm_object(str):
     dec = Decoder(str)
@@ -61,7 +60,3 @@ def get_market_event_data(str):
 
 def get_string(str):
     return Decoder(str).read_string()
-
-# Example usage
-event_data = get_token_event_data("encoded_event_data_string")
-print(event_data)
