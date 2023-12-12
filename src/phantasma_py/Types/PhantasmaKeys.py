@@ -1,8 +1,8 @@
 import base64
 import hashlib
-from Interfaces.IKeyPair import IKeyPair
+from ..Interfaces.IKeyPair import IKeyPair
 import base58
-from Types import Address, Ed25519Signature
+from . import Address, Ed25519Signature
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ed25519
 import os
@@ -25,7 +25,7 @@ class PhantasmaKeys:
             format=serialization.PublicFormat.Raw
         )
         
-        PublicKey = self._public_key
+        self.PublicKey = self._public_key
         #if ( hasattr(Address, 'FromKey') ):
         self.Address = Address.FromKey(self._public_key)
         #Address.FromMyKey()  # Implement Address class

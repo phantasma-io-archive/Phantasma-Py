@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import List
-from Interfaces.SignatureKind import SignatureKind
-from Types import Address
-from Types.Extensions import PBinaryReader, PBinaryWriter
+from .SignatureKind import SignatureKind
+from ..Types import Address
+from ..Types.Extensions import PBinaryReader, PBinaryWriter
 
 class Signature(ABC):
     @property

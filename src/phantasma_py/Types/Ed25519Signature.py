@@ -1,4 +1,4 @@
-from Types.Extensions import PBinaryWriter
+from .Extensions import PBinaryWriter
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ed25519
 from cryptography.exceptions import InvalidSignature

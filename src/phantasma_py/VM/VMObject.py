@@ -3,7 +3,7 @@ import base64
 from ctypes import Union
 from datetime import datetime
 from email.headerregistry import Address
-from Types.Timestamp import Timestamp
+from ..Types.Timestamp import Timestamp
 from .VMType import VMType
 from typing import Dict, Union
 
@@ -63,7 +63,7 @@ class VMObject:
         if (self.Type in [VMType.Object, VMType.Timestamp]) and isinstance(self.Data, Timestamp):
             return self.Data.Value
 
-        if self.Type == VMType.NoneType:
+        if self.Type == VMType.NONE:
             return 0
 
         if self.Type == VMType.String:
@@ -167,33 +167,31 @@ class VMObject:
 
         for i in range(len(values)):
             key = VMObject.FromObject(i)
-
-            if key in values:
-                val = values[key]
-                result.append(self.CastTo(val, type))
+            val = VMObject.FromObject(values.get(key))
+            result.append((val, type))
 
         return result
     
     def GetArrayType(self):
         if self.Type != VMType.Struct:
-            return VMType.NoneType
+            return VMType.NONE
 
         children = self.GetChildren()
 
-        result = VMType.NoneType
+        result = VMType.NONE
 
         for i in range(len(children)):
             key = VMObject.FromObject(i)
 
             if key not in children:
-                return VMType.NoneType
+                return VMType.NONE
 
             val = children[key]
 
-            if result == VMType.NoneType:
+            if result == VMType.NONE:
                 result = val.Type
             elif val.Type != result:
-                return VMType.NoneType
+                return VMType.NONE
 
         return result
 
@@ -386,9 +384,13 @@ class VMObject:
                 raise Exception("Cannot set value for VMType: " + vm_type)
 
         return self
-    
+
+    ''' elif isinstance(val, Hash):
+                self.Type = VMType.Object
+                self.Data = val
+                self._localSize = 4'''
     def SetValue(self, val):
-        if isinstance(val, BigInteger):
+        if isinstance(val, int):
             self.Type = VMType.Number
             self.Data = val
             self._localSize = len(val.to_bytes((val.bit_length() + 7) // 8, byteorder='big', signed=True))
@@ -398,10 +400,6 @@ class VMObject:
             self.Type = VMType.Struct
             self.Data = val
             self._localSize = 4  # TODO: Update this value
-        elif isinstance(val, Hash):
-            self.Type = VMType.Object
-            self.Data = val
-            self._localSize = 4
         elif isinstance(val, Address):
             self.Type = VMType.Object
             self.Data = val
@@ -439,7 +437,7 @@ class VMObject:
 
     @staticmethod
     def ValidateStructKey(key):
-        if key.Type in [VMType.NoneType, VMType.Struct, VMType.Object]:
+        if key.Type in [VMType.NONE, VMType.Struct, VMType.Object]:
             raise Exception(f"Cannot use value of type {key.Type} as key for struct field")
 
     def SetDefaultValue(self, vm_type):
@@ -449,7 +447,7 @@ class VMObject:
         if vm_type == VMType.Bytes:
             self.Data = bytearray()
         elif vm_type == VMType.Number:
-            self.Data = BigInteger(0)
+            self.Data = int(0)
         elif vm_type == VMType.String:
             self.Data = ""
         elif vm_type == VMType.Enum:
@@ -472,7 +470,7 @@ class VMObject:
         # NOTE: In Python, we don't need to create a new VMObject instance for the key
         if self.Type == VMType.Struct:
             children = self.GetChildren()
-        elif self.Type == VMType.NoneType:
+        elif self.Type == VMType.NONE:
             self.Type = VMType.Struct
             children = {}
             self.Data = children
@@ -534,8 +532,8 @@ class VMObject:
             return self.Data == other.Data
 
     def Copy(self, other):
-        if other is None or other.Type == VMType.NoneType:
-            self.Type = VMType.NoneType
+        if other is None or other.Type == VMType.NONE:
+            self.Type = VMType.NONE
             self.Data = None
             return
 
@@ -554,7 +552,7 @@ class VMObject:
             self.Data = other.Data
 
     def ToString(self):
-        if self.Type == VMType.NoneType:
+        if self.Type == VMType.NONE:
             return "Null"
         elif self.Type == VMType.Struct:
             return "[Struct]"
@@ -582,7 +580,7 @@ class VMObject:
             result.Copy(src_obj)
             return result
 
-        if type == VMType.NoneType:
+        if type == VMType.NONE:
             return VMObject()
 
         result = VMObject()
@@ -635,12 +633,12 @@ class VMObject:
         elif hasattr(type, '__class__') and (type.__class__.__name__ == 'classobj' or type.__class__.__name__ == 'type'):
             return VMType.Object
         else:
-            return VMType.NoneType
+            return VMType.NONE
 
     @staticmethod
     def IsVMType(type):
         result = VMObject.GetVMType(type)
-        return result != VMType.NoneType
+        return result != VMType.NONE
 
     @staticmethod
     def FromArray(array):
@@ -680,12 +678,10 @@ class VMObject:
         elif type_enum == VMType.Object:
             result.SetValue(obj)
         elif type_enum == VMType.Number:
-            if obj_type == int:
-                obj = VMObject(int(obj))  # HACK
             result.SetValue(obj)
         elif type_enum == VMType.Timestamp:
-            if obj_type == uint:
-                obj = Timestamp(uint(obj))  # HACK
+            if obj_type == datetime:
+                obj = Timestamp(datetime(obj))  # HACK
             result.SetValue(obj)
         elif type_enum == VMType.Struct:
             if isinstance(obj, list):

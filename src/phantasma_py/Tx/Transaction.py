@@ -5,6 +5,8 @@ from ecpy.keys import ECPublicKey, ECPrivateKey
 from ecpy.eddsa import EDDSA
 import hashlib
 
+from ..Types.Extensions import PBinaryWriter
+
 from ..VM.ScriptBuilder import ScriptBuilder
 
 
@@ -90,20 +92,20 @@ class Transaction():
         expirationBytes = [d, c, b, a]
 
         sb = ScriptBuilder()
-        sb.emitVarString(self.nexusName)
-        sb.emitVarString(self.chainName)
-        sb.emitVarInt(int(len(self.script) / 2))
-        sb.appendHexEncoded(self.script)
-        sb.emitBytes(expirationBytes)
-        sb.emitVarString(self.payload)
+        sb.EmitVarString(self.nexusName)
+        sb.EmitVarString(self.chainName)
+        sb.EmitVarInt(int(len(self.script) / 2))
+        sb.AppendHexEncoded(self.script)
+        sb.EmitBytes(expirationBytes)
+        sb.EmitVarString(self.payload)
 
         if (withSignature):
-            sb.emitVarInt(len(self.signatures))
+            sb.EmitVarInt(len(self.signatures))
             for s in self.signatures:
-                sb.appendByte(1)
+                sb.AppendByte(1)
                 sig = s.decode("utf-8").upper()
-                sb.emitVarInt(int(len(sig) / 2))
-                sb.appendHexEncoded(sig)
+                sb.EmitVarInt(int(len(sig) / 2))
+                sb.AppendHexEncoded(sig)
 
         return sb.data
 
@@ -128,3 +130,60 @@ class Transaction():
         sig = binascii.hexlify(sig)
 
         return(sig)
+    
+    def to_byte_array(self, with_signature):
+        writer = PBinaryWriter()
+        writer.write_string(self.nexusName)
+        writer.write_string(self.chainName)
+        writer.append_hex_encoded(self.script)
+        writer.write_date_time(self.expiration)
+        writer.append_hex_encoded(self.payload)
+        if with_signature:
+            writer.write_var_int(len(self.signatures))
+            for sig in self.signatures:
+                writer.write_signature(sig)
+
+        return writer.to_uint8_array()
+    
+
+    def get_hash(self):
+        # Convert the transaction to a string representation (without the signature)
+        transaction_str = self.toString(False)
+
+        # Compute SHA256 hash of the string
+        hash_obj = hashlib.sha256(transaction_str.encode())
+
+        # Convert the hash to a hexadecimal string and reverse it
+        self.hash = hash_obj.hexdigest()[::-1]
+
+        return self.hash
+    
+    def to_string(self, with_signature):
+        parts = []
+
+        # Append the nexus name and chain name
+        parts.append(self.nexus_name)
+        parts.append(self.chain_name)
+
+        # Append the script (length and hex encoded)
+        parts.append(str(len(self.script) // 2))
+        parts.append(self.script)
+
+        # Convert the expiration date to a timestamp and append
+        expiration_timestamp = int(self.expiration.timestamp())
+        parts.append(str(expiration_timestamp))
+
+        # Append the payload (length and hex encoded)
+        parts.append(str(len(self.payload) // 2))
+        parts.append(self.payload)
+
+        if with_signature:
+            # Append the number of signatures
+            parts.append(str(len(self.signatures)))
+            for sig in self.signatures:
+                # You need to adapt this part based on the structure of your Signature object in Python
+                parts.append(str(sig.kind))
+                parts.append(str(len(sig.bytes) // 2))
+                parts.append(binascii.hexlify(sig.bytes).decode())
+
+        return ''.join(parts)
