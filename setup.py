@@ -34,7 +34,7 @@ setup(
     keywords=["Swagger", "Phantasma API"],
     install_requires=REQUIRES,
     #packages=find_packages(),
-    packages=["phantasma_py"],
+    packages=find_packages(where="src"),
     package_dir={"": "src"},
     include_package_data=True,
     long_description=long_description,
