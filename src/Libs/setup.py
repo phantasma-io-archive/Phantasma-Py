@@ -12,7 +12,7 @@
 
 from setuptools import setup, find_packages  # noqa: H301
 
-NAME = "Phantasma-PY"
+NAME = "phantasma-py"
 VERSION = "1.0.1"
 # To install the library, run the following
 #
@@ -26,7 +26,7 @@ REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil"]
 setup(
     name=NAME,
     version=VERSION,
-    description="Phantasma API",
+    description="Phantasma SDK for Python",
     author_email="",
     url="https://phantasma.io/",
     keywords=["Swagger", "Phantasma API"],
