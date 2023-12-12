@@ -179,7 +179,7 @@ class ScriptBuilder():
         typeLoaded = False
         if (isinstance(obj, str)):
             data = self.rawString(obj)
-            self.emitLoadBytes(reg, data, VMType.STRING)
+            self.emitLoadBytes(reg, data, VMType.String)
             typeLoaded = True
 
         # Boolean
@@ -189,13 +189,13 @@ class ScriptBuilder():
                 data.append(1)
             else:
                 data.append(0)
-            self.emitLoadBytes(reg, data, VMType.BOOL)
+            self.emitLoadBytes(reg, data, VMType.Bool)
             typeLoaded = True
 
         # Number
         if ((isinstance(obj, int)) or (isinstance(obj, float))):
             data = self.rawString(str(obj))
-            self.emitLoadBytes(reg, data, VMType.STRING)
+            self.emitLoadBytes(reg, data, VMType.String)
             typeLoaded = True
 
         # Timestamp
@@ -211,7 +211,7 @@ class ScriptBuilder():
         return self
 
     def EmitLoadBytes(self, reg: int, data: bytes = None,
-                      typ: VMType = VMType.BYTES) -> None:
+                      typ: VMType = VMType.Bytes) -> None:
 
         '''This method loads bytes data to the script.
 
@@ -254,7 +254,7 @@ class ScriptBuilder():
             data[c] = (val & 0xff)
             val = (val - (val & 0xff)) / 256
 
-        self.EmitLoadBytes(reg, data, VMType.ENUM)
+        self.EmitLoadBytes(reg, data, VMType.Enum)
         return self
 
     def EmitLoadTimestamp(self, reg: int, obj: datetime) -> None:
@@ -276,7 +276,7 @@ class ScriptBuilder():
         d = num & 0x000000ff
 
         data = [d, c, b, a]
-        self.EmitLoadBytes(reg, data, VMType.TIMESTAMP)
+        self.EmitLoadBytes(reg, data, VMType.Timestamp)
         return self
 
     def EmitMove(self, src_reg: int, dst_reg: int) -> None:

@@ -19,7 +19,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd src/Libs
           pip install --upgrade pip
           pip install setuptools wheel twine
 
@@ -28,6 +27,5 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
-          cd src/Libs
           python setup.py sdist bdist_wheel
           twine upload dist/*

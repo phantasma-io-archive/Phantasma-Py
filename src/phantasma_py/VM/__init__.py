@@ -5,6 +5,6 @@ from .EventDecoder import EventDecoder
 from .ScriptBuilder import ScriptBuilder
 from .Contracts import Contracts
 from .Decoder import Decoder
-from .EventData import EventData
+from .EventData import *
 from .TypeAuction import TypeAuction
 from .VMObject import VMObject

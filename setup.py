@@ -20,7 +20,7 @@ VERSION = "1.0.4"
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 
-REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil", "requests", "base58", "cryptography", "numpy"]
+REQUIRES = ["urllib3 >= 1.15", "six >= 1.10", "certifi", "python-dateutil", "requests", "base58", "cryptography", "numpy", "ecpy"]
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -35,7 +35,7 @@ setup(
     install_requires=REQUIRES,
     #packages=find_packages(),
     packages=["phantasma_py"],
-    package_dir={"": "../../src"},
+    package_dir={"": "src"},
     include_package_data=True,
     long_description=long_description,
     long_description_content_type="text/markdown",
