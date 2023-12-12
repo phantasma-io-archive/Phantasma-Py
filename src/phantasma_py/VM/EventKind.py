@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import IntEnum
 
-class EventKind(Enum):
+class EventKind(IntEnum):
     Unknown = 0
     ChainCreate = 1
     TokenCreate = 2

@@ -2,7 +2,7 @@ import struct
 from datetime import datetime
 from typing import Union, List
 
-from Interfaces import Signature, SignatureKind
+from ...Interfaces import Signature, SignatureKind
 
 # Assuming Signature and SignatureKind are already defined in your Python project
 

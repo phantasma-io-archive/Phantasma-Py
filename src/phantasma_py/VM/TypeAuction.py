@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import IntEnum
 
-class TypeAuction(Enum):
+class TypeAuction(IntEnum):
     Fixed = 0
     Classic = 1
     Reserve = 2

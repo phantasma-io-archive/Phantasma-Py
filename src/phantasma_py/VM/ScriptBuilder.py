@@ -3,6 +3,7 @@ from typing import Any
 from enum import Enum, IntEnum
 from .Opcode import Opcode
 from .VMType import VMType
+from ..Utils import number_to_byte_array
 
 
 class ScriptBuilder():
@@ -103,9 +104,9 @@ class ScriptBuilder():
         if data is not None:
             if isinstance(data, list):
                 for d in data:
-                    self.emit(d)
+                    self.Emit(d)
             else:
-                self.emit(data)
+                self.Emit(data)
         return self
 
     def EmitPush(self, reg: int) -> None:
@@ -178,8 +179,8 @@ class ScriptBuilder():
         # String
         typeLoaded = False
         if (isinstance(obj, str)):
-            data = self.rawString(obj)
-            self.emitLoadBytes(reg, data, VMType.String)
+            data = self.RawString(obj)
+            self.EmitLoadBytes(reg, data, VMType.String)
             typeLoaded = True
 
         # Boolean
@@ -189,25 +190,45 @@ class ScriptBuilder():
                 data.append(1)
             else:
                 data.append(0)
-            self.emitLoadBytes(reg, data, VMType.Bool)
+            self.EmitLoadBytes(reg, data, VMType.Bool)
             typeLoaded = True
 
         # Number
         if ((isinstance(obj, int)) or (isinstance(obj, float))):
-            data = self.rawString(str(obj))
-            self.emitLoadBytes(reg, data, VMType.String)
+            self.EmitLoadVarInt(reg, obj)
             typeLoaded = True
 
         # Timestamp
         if (isinstance(obj, datetime)):
-            data = self.rawString(str(obj))
-            self.emitLoadTimestamp(reg, obj)
+            data = self.RawString(str(obj))
+            self.EmitLoadTimestamp(reg, obj)
             typeLoaded = True
 
         if not typeLoaded:
             raise Exception("Load type " + str(type(obj)) +
                             " is not supported")
 
+        return self
+
+    def EmitLoadVarInt(self, reg, val):
+        """
+        Emit a LOAD operation for a variable integer.
+
+        Args:
+            reg (int): The register number to load the value into.
+            val (int): The integer value to load.
+
+        Returns:
+            self: Allows for method chaining.
+        """
+        bytes_val = number_to_byte_array(val)
+
+        self.Emit(Opcode.LOAD)
+        self.AppendByte(reg)
+        self.AppendByte(VMType.Number)
+
+        self.AppendByte(len(bytes_val))
+        self.EmitBytes(bytes_val)
         return self
 
     def EmitLoadBytes(self, reg: int, data: bytes = None,
@@ -423,11 +444,11 @@ class ScriptBuilder():
             None
         '''
 
-        self.insertMethodArgs(args)
+        self.InsertMethodArgs(args)
 
         dest_reg = 0
-        self.emitLoad(dest_reg, method)
-        self.emit(Opcode.EXTCALL, dest_reg)
+        self.EmitLoad(dest_reg, method)
+        self.Emit(Opcode.EXTCALL, dest_reg)
         return self
 
     def CallContract(self, contractName: str, method: str, args: list) -> None:
@@ -442,17 +463,17 @@ class ScriptBuilder():
             None
         '''
 
-        self.insertMethodArgs(args)
+        self.InsertMethodArgs(args)
 
         temp_reg = 0
-        self.emitLoad(temp_reg, method)
-        self.emitPush(temp_reg)
+        self.EmitLoad(temp_reg, method)
+        self.EmitPush(temp_reg)
 
         src_reg = 0
         dest_reg = 1
-        self.emitLoad(src_reg, contractName)
-        self.emit(Opcode.CTX, [src_reg, dest_reg])
-        self.emit(Opcode.SWITCH, [dest_reg])
+        self.EmitLoad(src_reg, contractName)
+        self.Emit(Opcode.CTX, [src_reg, dest_reg])
+        self.Emit(Opcode.SWITCH, [dest_reg])
         return self
 
     def EmitVarString(self, text: str) -> None:
@@ -483,31 +504,31 @@ class ScriptBuilder():
         if value < 0:
             raise Exception("Negative value invalid")
         if (value < 0xfd):
-            self.appendByte(value)
+            self.AppendByte(value)
         elif (value <= 0xffff):
             B = (value & 0x0000ff00) >> 8
             A = value & 0x000000ff
-            self.appendByte(0xfd)
-            self.appendByte(A)
-            self.appendByte(B)
+            self.AppendByte(0xfd)
+            self.AppendByte(A)
+            self.AppendByte(B)
         elif (value <= 0xffffffff):
             C = (value & 0x00ff0000) >> 16
             B = (value & 0x0000ff00) >> 8
             A = value & 0x000000ff
-            self.appendByte(0xfe)
-            self.appendByte(A)
-            self.appendByte(B)
-            self.appendByte(C)
+            self.AppendByte(0xfe)
+            self.AppendByte(A)
+            self.AppendByte(B)
+            self.AppendByte(C)
         else:
             D = (value & 0xff000000) >> 24
             C = (value & 0x00ff0000) >> 16
             B = (value & 0x0000ff00) >> 8
             A = value & 0x000000ff
-            self.appendByte(0xff)
-            self.appendByte(A)
-            self.appendByte(B)
-            self.appendByte(C)
-            self.appendByte(D)
+            self.AppendByte(0xff)
+            self.AppendByte(A)
+            self.AppendByte(B)
+            self.AppendByte(C)
+            self.AppendByte(D)
         return self
 
     def EmitBytes(self, data: bytes) -> None:
@@ -521,7 +542,7 @@ class ScriptBuilder():
         '''
 
         for i in data:
-            self.appendByte(i)
+            self.AppendByte(i)
 
     def ByteToHex(self, data: int) -> str:
         '''This method converts a byte into an str hex representation.
@@ -548,7 +569,7 @@ class ScriptBuilder():
             None
         '''
 
-        self.data = self.data + self.byteToHex(data)
+        self.data = self.data + self.ByteToHex(data)
 
     def AppendUshort(self, ushort: int) -> None:
         '''This method loads a unsigned short int variable into the script.
@@ -561,7 +582,7 @@ class ScriptBuilder():
         '''
 
         self.data = self.data + \
-            (self.byteToHex(ushort & 0xff)) + (this.byteToHex((ushort >> 8) & 0xff))
+            (self.ByteToHex(ushort & 0xff)) + (this.byteToHex((ushort >> 8) & 0xff))
 
     def AppendHexEncoded(self, data: str) -> None:
         '''This method loads an Hex string variable into the script.
@@ -583,7 +604,7 @@ class ScriptBuilder():
             to: str,
             gasPrice: int,
             gasLimit: int) -> None:
-        return self.callContract(
+        return self.CallContract(
             self.Nexus["GasContractName"], "AllowGas", [
                 frm, to, gasPrice, gasLimit])
         '''This method is a wrapper that invokes the method AllowGas from the gas contract.
@@ -599,7 +620,7 @@ class ScriptBuilder():
         '''
 
     def SpendGas(self, address: str) -> None:
-        return self.callContract(
+        return self.CallContract(
             self.Nexus["GasContractName"], "SpendGas", [address])
         '''This method is a wrapper that invokes the method SpendGas from the gas contract.
 

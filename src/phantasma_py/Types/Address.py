@@ -1,6 +1,6 @@
 #from Types import PhantasmaKeys
-from Types.Enums import AddressKind
-from Types import Serialization
+from .Enums import AddressKind
+from .Serialization import Serialization
 import base58
 import hashlib
 from cryptography.hazmat.primitives import serialization
@@ -19,7 +19,7 @@ class Address:
     def __init__(self, public_key: bytes):
         if len(public_key) != Address.LengthInBytes:
             raise ValueError(f"publicKey length must be {Address.LengthInBytes}, it was {len(public_key)}")
-        self._bytes = public_key
+        self._bytes = public_key[0:Address.LengthInBytes]
         self._text = None
 
     @staticmethod
@@ -45,7 +45,7 @@ class Address:
         elif self._bytes[0] >= 3:
             return AddressKind.Interop
         else:
-            return chr(self._bytes[0])
+            return self._bytes[0]
 
     def IsSystem(self) -> bool:
         return self.Kind == AddressKind.System
@@ -110,11 +110,11 @@ class Address:
         bytes_ = base58.b58decode(text)
         addr = Address(bytes_)
 
-        if prefix == "P" and addr.Kind != AddressKind.User:
+        if prefix == "P" and addr.Kind() != AddressKind.User:
             raise ValueError("Invalid address prefix. Expected 'P'")
-        elif prefix == "S" and addr.Kind != AddressKind.System:
+        elif prefix == "S" and addr.Kind() != AddressKind.System:
             raise ValueError("Invalid address prefix. Expected 'S'")
-        elif prefix == "X" and addr.Kind < AddressKind.Interop:
+        elif prefix == "X" and addr.Kind() < AddressKind.Interop:
             raise ValueError("Invalid address prefix. Expected 'X'")
 
         return addr
@@ -168,8 +168,7 @@ class Address:
         if self.is_null():
             return self.NullText
 
-        prefix = {AddressKind.User: 'P', AddressKind.Interop: 'X'}.get(self.kind(), 'S')
-        return prefix + base58.b58encode(self._bytes).decode()
+        return self.Text;
 
     def to_byte_array(self):
         return self._bytes
@@ -185,16 +184,3 @@ class Address:
 
     def is_null(self):
         return self._bytes == bytearray(self.LengthInBytes)
-
-    def kind(self):
-        """
-        Determine the address kind based on the first byte.
-        This logic should be aligned with how your application defines different address kinds.
-        """
-        if self._bytes[0] == AddressKind.User:
-            return "User"
-        elif self._bytes[0] == AddressKind.Interop:
-            return "Interop"
-        # Add more conditions for other address kinds as needed
-        else:
-            return "Unknown"
