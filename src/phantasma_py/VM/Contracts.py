@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import IntEnum
 
-class Contracts(Enum):
+class Contracts(IntEnum):
     GasContractName = "gas"
     BlockContractName = "block"
     StakeContractName = "stake"
