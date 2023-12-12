@@ -13,7 +13,7 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "phantasma-py"
-VERSION = "1.0.3"
+VERSION = "1.0.4"
 # To install the library, run the following
 #
 # python setup.py install
@@ -33,7 +33,9 @@ setup(
     url="https://phantasma.io/",
     keywords=["Swagger", "Phantasma API"],
     install_requires=REQUIRES,
-    packages=find_packages(),
+    #packages=find_packages(),
+    packages=["phantasma_py"],
+    package_dir={"": "../../src"},
     include_package_data=True,
     long_description=long_description,
     long_description_content_type="text/markdown",
