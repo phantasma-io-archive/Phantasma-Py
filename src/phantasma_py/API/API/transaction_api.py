@@ -32,7 +32,7 @@ class TransactionApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_address_transaction_count_get(self, **kwargs):  # noqa: E501
+    def GetAddressTransactionCount(self, **kwargs):  # noqa: E501
         """api_v1_get_address_transaction_count_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -125,7 +125,7 @@ class TransactionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_address_transactions_get(self, **kwargs):  # noqa: E501
+    def GetAddressTransactions(self, **kwargs):  # noqa: E501
         """api_v1_get_address_transactions_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -222,7 +222,7 @@ class TransactionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_transaction_by_block_hash_and_index_get(self, **kwargs):  # noqa: E501
+    def GetTransactionByBlockHashAndIndex(self, **kwargs):  # noqa: E501
         """api_v1_get_transaction_by_block_hash_and_index_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -319,7 +319,7 @@ class TransactionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_transaction_get(self, **kwargs):  # noqa: E501
+    def GetTransaction(self, **kwargs):  # noqa: E501
         """api_v1_get_transaction_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -408,7 +408,7 @@ class TransactionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_invoke_raw_script_get(self, **kwargs):  # noqa: E501
+    def InvokeRawScript(self, **kwargs):  # noqa: E501
         """api_v1_invoke_raw_script_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -501,7 +501,7 @@ class TransactionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_send_raw_transaction_get(self, **kwargs):  # noqa: E501
+    def SendRawTransaction(self, **kwargs):  # noqa: E501
         """api_v1_send_raw_transaction_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

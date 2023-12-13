@@ -32,7 +32,7 @@ class AccountApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_account_get(self, **kwargs):  # noqa: E501
+    def GetAccount(self, **kwargs):  # noqa: E501
         """api_v1_get_account_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -121,7 +121,7 @@ class AccountApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_accounts_get(self, **kwargs):  # noqa: E501
+    def GetAccounts(self, **kwargs):  # noqa: E501
         """api_v1_get_accounts_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -210,7 +210,7 @@ class AccountApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_addresses_by_symbol_get(self, **kwargs):  # noqa: E501
+    def GetAddressesBySymbol(self, **kwargs):  # noqa: E501
         """api_v1_get_addresses_by_symbol_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -303,7 +303,7 @@ class AccountApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_look_up_name_get(self, **kwargs):  # noqa: E501
+    def LookUpName(self, **kwargs):  # noqa: E501
         """api_v1_look_up_name_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

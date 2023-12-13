@@ -32,7 +32,7 @@ class SaleApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_latest_sale_hash_get(self, **kwargs):  # noqa: E501
+    def GetLatestSaleHash(self, **kwargs):  # noqa: E501
         """api_v1_get_latest_sale_hash_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -117,7 +117,7 @@ class SaleApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_sale_get(self, **kwargs):  # noqa: E501
+    def GetSale(self, **kwargs):  # noqa: E501
         """api_v1_get_sale_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

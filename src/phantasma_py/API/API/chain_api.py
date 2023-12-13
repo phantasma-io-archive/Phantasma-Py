@@ -32,7 +32,7 @@ class ChainApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_chains_get(self, **kwargs):  # noqa: E501
+    def GetChains(self, **kwargs):  # noqa: E501
         """api_v1_get_chains_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

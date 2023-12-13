@@ -32,7 +32,7 @@ class AuctionApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_auction_get(self, **kwargs):  # noqa: E501
+    def GetAuction(self, **kwargs):  # noqa: E501
         """api_v1_get_auction_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -129,7 +129,7 @@ class AuctionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_auctions_count_get(self, **kwargs):  # noqa: E501
+    def GetAuctionsCount(self, **kwargs):  # noqa: E501
         """api_v1_get_auctions_count_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -222,7 +222,7 @@ class AuctionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_auctions_get(self, **kwargs):  # noqa: E501
+    def GetAuctions(self, **kwargs):  # noqa: E501
         """api_v1_get_auctions_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

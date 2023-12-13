@@ -32,7 +32,7 @@ class PlatformApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_interop_get(self, **kwargs):  # noqa: E501
+    def GetInterop(self, **kwargs):  # noqa: E501
         """api_v1_get_interop_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -121,7 +121,7 @@ class PlatformApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_platform_get(self, **kwargs):  # noqa: E501
+    def GetPlatform(self, **kwargs):  # noqa: E501
         """api_v1_get_platform_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -210,7 +210,7 @@ class PlatformApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_platforms_get(self, **kwargs):  # noqa: E501
+    def GetPlatforms(self, **kwargs):  # noqa: E501
         """api_v1_get_platforms_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

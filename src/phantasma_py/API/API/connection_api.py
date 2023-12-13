@@ -32,7 +32,7 @@ class ConnectionApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_abci_query_get(self, **kwargs):  # noqa: E501
+    def abci_query(self, **kwargs):  # noqa: E501
         """api_v1_abci_query_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -133,7 +133,7 @@ class ConnectionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_validators_settings_get(self, **kwargs):  # noqa: E501
+    def GetValidatorsSettings(self, **kwargs):  # noqa: E501
         """api_v1_get_validators_settings_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -218,7 +218,7 @@ class ConnectionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_health_get(self, **kwargs):  # noqa: E501
+    def health(self, **kwargs):  # noqa: E501
         """api_v1_health_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -303,7 +303,7 @@ class ConnectionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_net_info_get(self, **kwargs):  # noqa: E501
+    def net_info(self, **kwargs):  # noqa: E501
         """api_v1_net_info_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -388,7 +388,7 @@ class ConnectionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_request_block_get(self, **kwargs):  # noqa: E501
+    def request_block(self, **kwargs):  # noqa: E501
         """api_v1_request_block_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -477,7 +477,7 @@ class ConnectionApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_status_get(self, **kwargs):  # noqa: E501
+    def status(self, **kwargs):  # noqa: E501
         """api_v1_status_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

@@ -32,7 +32,7 @@ class ValidatorApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_validators_get(self, **kwargs):  # noqa: E501
+    def GetValidators(self, **kwargs):  # noqa: E501
         """api_v1_get_validators_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -117,7 +117,7 @@ class ValidatorApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_validators_type_get(self, type, **kwargs):  # noqa: E501
+    def GetValidatorsType(self, type, **kwargs):  # noqa: E501
         """api_v1_get_validators_type_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

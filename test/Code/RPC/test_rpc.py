@@ -9,7 +9,7 @@ class TestRpc(unittest.TestCase):
         config.host = apiURL
         api = ApiClient(configuration=config)
         accountAPI = AccountApi(api)
-        account = accountAPI.api_v1_get_account_get(account="P2K7YKXhG8uvdpATM2oe5i6bCEDuQiNq2kSaeiZcakMWZTZ")
+        account = accountAPI.GetAccount(account="P2K7YKXhG8uvdpATM2oe5i6bCEDuQiNq2kSaeiZcakMWZTZ")
         print(account)
         #self.assertEqual(True, False)  # add assertion here
 

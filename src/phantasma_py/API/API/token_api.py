@@ -32,7 +32,7 @@ class TokenApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_nft_get(self, **kwargs):  # noqa: E501
+    def GetNFT(self, **kwargs):  # noqa: E501
         """api_v1_get_nft_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -129,7 +129,7 @@ class TokenApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_nfts_get(self, **kwargs):  # noqa: E501
+    def GetNFTs(self, **kwargs):  # noqa: E501
         """api_v1_get_nfts_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -226,7 +226,7 @@ class TokenApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_token_balance_get(self, **kwargs):  # noqa: E501
+    def GetTokenBalance(self, **kwargs):  # noqa: E501
         """api_v1_get_token_balance_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -323,7 +323,7 @@ class TokenApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_token_data_get(self, **kwargs):  # noqa: E501
+    def GetTokenData(self, **kwargs):  # noqa: E501
         """api_v1_get_token_data_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -416,7 +416,7 @@ class TokenApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_token_get(self, **kwargs):  # noqa: E501
+    def GetToken(self, **kwargs):  # noqa: E501
         """api_v1_get_token_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -509,7 +509,7 @@ class TokenApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_tokens_get(self, **kwargs):  # noqa: E501
+    def GetTokens(self, **kwargs):  # noqa: E501
         """api_v1_get_tokens_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

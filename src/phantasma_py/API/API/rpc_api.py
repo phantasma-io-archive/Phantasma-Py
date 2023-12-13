@@ -32,7 +32,7 @@ class RpcApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def rpc_post(self, **kwargs):  # noqa: E501
+    def rpc(self, **kwargs):  # noqa: E501
         """rpc_post  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

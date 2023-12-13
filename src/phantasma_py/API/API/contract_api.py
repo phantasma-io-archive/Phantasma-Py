@@ -32,7 +32,7 @@ class ContractApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_contract_by_address_get(self, **kwargs):  # noqa: E501
+    def GetContractByAddress(self, **kwargs):  # noqa: E501
         """api_v1_get_contract_by_address_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -125,7 +125,7 @@ class ContractApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_contract_get(self, **kwargs):  # noqa: E501
+    def GetContract(self, **kwargs):  # noqa: E501
         """api_v1_get_contract_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -218,7 +218,7 @@ class ContractApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_contracts_get(self, **kwargs):  # noqa: E501
+    def GetContracts(self, **kwargs):  # noqa: E501
         """api_v1_get_contracts_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
