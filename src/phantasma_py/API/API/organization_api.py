@@ -32,7 +32,7 @@ class OrganizationApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_organization_by_name_get(self, **kwargs):  # noqa: E501
+    def GetOrganizationByName(self, **kwargs):  # noqa: E501
         """api_v1_get_organization_by_name_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -121,7 +121,7 @@ class OrganizationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_organization_get(self, **kwargs):  # noqa: E501
+    def GetOrganization(self, **kwargs):  # noqa: E501
         """api_v1_get_organization_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -210,7 +210,7 @@ class OrganizationApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_organizations_get(self, **kwargs):  # noqa: E501
+    def GetOrganizations(self, **kwargs):  # noqa: E501
         """api_v1_get_organizations_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

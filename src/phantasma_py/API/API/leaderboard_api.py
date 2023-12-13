@@ -32,7 +32,7 @@ class LeaderboardApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_leaderboard_get(self, **kwargs):  # noqa: E501
+    def GetLeaderboard(self, **kwargs):  # noqa: E501
         """api_v1_get_leaderboard_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an

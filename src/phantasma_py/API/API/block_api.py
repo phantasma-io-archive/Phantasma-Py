@@ -32,7 +32,7 @@ class BlockApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def api_v1_get_block_by_hash_get(self, **kwargs):  # noqa: E501
+    def GetBlockByHash(self, **kwargs):  # noqa: E501
         """api_v1_get_block_by_hash_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -121,7 +121,7 @@ class BlockApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_block_by_height_get(self, **kwargs):  # noqa: E501
+    def GetBlockByHeight(self, **kwargs):  # noqa: E501
         """api_v1_get_block_by_height_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -214,7 +214,7 @@ class BlockApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_block_height_get(self, **kwargs):  # noqa: E501
+    def GetBlockHeight(self, **kwargs):  # noqa: E501
         """api_v1_get_block_height_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -303,7 +303,7 @@ class BlockApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_block_transaction_count_by_hash_get(self, **kwargs):  # noqa: E501
+    def GetBlockTransactionCountByHash(self, **kwargs):  # noqa: E501
         """api_v1_get_block_transaction_count_by_hash_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -396,7 +396,7 @@ class BlockApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_latest_block_get(self, **kwargs):  # noqa: E501
+    def GetLatestBlock(self, **kwargs):  # noqa: E501
         """api_v1_get_latest_block_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -485,7 +485,7 @@ class BlockApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_raw_block_by_hash_get(self, **kwargs):  # noqa: E501
+    def GetRawBlockByHash(self, **kwargs):  # noqa: E501
         """api_v1_get_raw_block_by_hash_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -574,7 +574,7 @@ class BlockApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_raw_block_by_height_get(self, **kwargs):  # noqa: E501
+    def GetRawBlockByHeight(self, **kwargs):  # noqa: E501
         """api_v1_get_raw_block_by_height_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
@@ -667,7 +667,7 @@ class BlockApi(object):
             _request_timeout=params.get('_request_timeout'),
             collection_formats=collection_formats)
 
-    def api_v1_get_raw_latest_block_get(self, **kwargs):  # noqa: E501
+    def GetRawLatestBlock(self, **kwargs):  # noqa: E501
         """api_v1_get_raw_latest_block_get  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
