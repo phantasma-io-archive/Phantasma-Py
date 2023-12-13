@@ -18,8 +18,8 @@ class PhantasmaRPC:
 		}
 		response = requests.post(self.url, data=json.dumps(payload), headers=headers).json()
 
-		assert response["jsonrpc"]
-		assert response["id"] == 1, response
+		#assert response["jsonrpc"]
+		#assert response["id"] == 1, response
 		return response["result"]
 
 

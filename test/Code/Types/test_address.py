@@ -45,6 +45,11 @@ class TestAddress(unittest.TestCase):
         self.assertTrue(Address.IsValidAddress(self.sample_text))
         self.assertFalse(Address.IsValidAddress("InvalidText"))
 
+    def test_from_bytes(self):
+        address = Address.FromBytes(self.sample_public_key)
+        self.assertIsInstance(address, Address)
+        self.assertEqual(self.key.Address.Text, address.Text)
+
     # Add more tests for other methods like compareTo, equals, serialize_data, unserialize_data, etc.
 
 if __name__ == '__main__':

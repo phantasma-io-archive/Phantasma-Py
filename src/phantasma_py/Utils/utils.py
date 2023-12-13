@@ -1,4 +1,7 @@
 import binascii
+import base64
+
+from phantasma_py.Types import Address
 
 def hex_to_byte_array(hex_string):
     return bytearray.fromhex(hex_string)
@@ -58,3 +61,17 @@ def hex2ascii(hex_string):
 
 def int2buffer(i):
     return i.to_bytes((i.bit_length() + 7) // 8, 'big')
+
+
+def get_address_from_public_key(public_key):
+    # Decode the public key from Base16 (hex) to bytes
+    pub_key_bytes = base64.b16decode(public_key.upper())
+
+    # Create a new bytes array and set the first two elements
+    addr_array = bytearray(34)
+    addr_array[0] = 1
+
+    # Copy 32 bytes from the public key to addr_array, starting from the 3rd position
+    addr_array[2:34] = pub_key_bytes[:32]
+
+    return Address.FromPublicKey(addr_array)
